@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            color: #333;
+            background-color: #e6e4e4;
+        }
+
+        header {
+            background: linear-gradient(45deg, #6b5b95, #b8a9c9);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slide-in 1s ease-out;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        nav {
+            background: #6b5b95;
+            text-align: center;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: slide-in 1.2s ease-out;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ddd;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .main-content, .sidebar {
+            background: #fff;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fade-in 1.5s ease-out;
+        }
+
+        .main-content {
+            flex: 3;
+            min-width: 250px;
+        }
+
+        .main-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .post {
+            margin-bottom: 20px;
+        }
+
+        .post h3 {
+            font-size: 1.5rem;
+            color: #6b5b95;
+            margin-bottom: 10px;
+        }
+
+        .read-more-button {
+            --color: #6b5b95;
+            font-family: inherit;
+            display: inline-block;
+            width: 8em;
+            height: 2.6em;
+            line-height: 2.5em;
+            margin: 20px auto; /* Centraliza horizontalmente */
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--color);
+            transition: color .5s;
+            z-index: 1;
+            font-size: 17px;
+            border-radius: 6px;
+            font-weight: 500;
+            color: var(--color);
+            background: none;
+            cursor: pointer;
+            text-align: center; /* Centraliza texto */
+        }
+
+        .read-more-button:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            background: var(--color);
+            height: 150px;
+            width: 200px;
+            border-radius: 50%;
+            top: 100%;
+            left: 100%;
+            transition: all .7s;
+        }
+
+        .read-more-button:hover {
+            color: #fff;
+        }
+
+        .read-more-button:hover:before {
+            top: -30px;
+            left: -30px;
+        }
+
+        .read-more-button:active:before {
+            background: #3a0ca3;
+            transition: background 0s;
+        }
+
+        .hidden-content p {
+            margin-top: 10px;
+        }
+
+        .sidebar {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .sidebar h2 {
+            font-size: 1.8rem;
+            color: #6b5b95;
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            color: #6b5b95;
+        }
+
+        section {
+            padding: 20px;
+            background: #fff;
+            margin: 20px 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fade-in 1.5s ease-out;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            color: #6b5b95;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: #6b5b95;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            animation: slide-in 1.3s ease-out;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            nav {
+                padding: 10px;
+            }
+
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .main-content, .sidebar {
+                margin: 10px 0;
+            }
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        .hidden-content {
+            display: none;
+        }
+
+        input[type="checkbox"]:checked ~ .hidden-content {
+            display: block;
+        }
+
+        .purple-text {
+            color: #6b5b95;
+        }
+
+        /* Keyframes for animations */
+        @keyframes slide-in {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blog Blog</h1>
+    </header>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+        <a href="#sobre-mim">Sobre mim</a>
+    </nav>
+    <div class="container">
+        <section id="home" class="main-content">
+            <h2>Home</h2>
+            <div class="post">
+                <h3>Como o Blog surgiu?</h3>
+                <p><em>Publicado em 16/07/2024</em></p>
+                <input type="checkbox" id="post1-toggle">
+                <label for="post1-toggle" class="read-more-button">Leia mais...</label>
+                <div class="hidden-content">
+                    <p>No início, o blog era apenas um diário virtual para os usuários. Com o passar dos anos, seu uso se transformou e passou a oferecer diferentes conteúdos e notícias de maneira estratégica. Atualmente, os blogs abordam uma variedade de assuntos e atingem diversos públicos.</p>
+                    <p>Por volta de 1997, Jorn Barger, autor de um dos primeiros FAQ – Frequently Asked Questions, da história da internet, foi também o pioneiro em desenvolver um tipo de sistema onde uma pessoa poderia relatar qualquer coisa que achasse relevante na internet, e para nomear esse sistema foi criado o termo “weblog”.</p>
+                </div>
+            </div>
+            <div class="post">
+                <h3>Qual é o sentido da vida?</h3>
+                <p><em>Publicado em 15/07/2024</em></p>
+                <input type="checkbox" id="post2-toggle">
+                <label for="post2-toggle" class="read-more-button">Leia mais...</label>
+                <div class="hidden-content">
+                    <p>Muitas pessoas ficam se perguntando o sentido da vida, desde os tempos antigos, essa conversa nos assombra. Entretanto, vou falar na minha visão qual o sentido da vida.</p>
+                    <p>Na minha visão, sobre qual é o sentido da vida, é que a vida não tem sentido. Já parou para pensar quem nós somos, como surgimos, como estamos aqui, como tudo funciona e será que estamos sozinhos? Então, todas essas coisas não fazem sentido de um ponto de vista existencial e filosófico. Entretanto, qual seria o verdadeiro sentido da vida? O verdadeiro sentido da vida seria atribuir um a ela. Ficou confuso? É isso mesmo que você leu, você atribui um sentido a ela para ser vivida.</p>
+                </div>
+            </div>
+            <div class="post">
+                <h3>Mensagem de boas-vindas!</h3>
+                <p><em>Publicado em 05/07/2024</em></p>
+                <input type="checkbox" id="post3-toggle">
+                <label for="post3-toggle" class="read-more-button">Leia mais...</label>
+                <div class="hidden-content">
+                    <p>Olá, espero que esteja ótimo! Seja bem-vindo ao meu Blog.</p>
+                    <p>Muito obrigado por sua atenção. Espero que goste do Blog :)</p>
+                </div>
+            </div>
+        </section>
+        <aside class="sidebar">
+            <h2>Sobre Mim</h2>
+            <h3 class="purple-text">Quem sou eu?</h3>
+            <p>Olá a todos presente, meu nome é Miguel Santos Campos! Fui criado e nascido no estado de São Paulo, Capital. Desde muito novo, sempre gostei de mexer com internet. Meu primeiro contato com ela foi em meados de 2011-2012, em um computador bege com o Windows XP. Nele, conheci o Youtube, Paint, Jogos de navegadores etc. Todas essas descobertas moldaram meu gosto pessoal pelas coisas.</p>
+            <br>
+            <br>
+            <h3 class="purple-text"> Por que resolvi criar este Blog?</h3>
+            <p>O motivo de eu criar esse Blog, foi porque eu queria compartilhar minhas idéias com o mundo, então a melhor maneira pra fazer isso foi criando um blog. Desde muito novo sempre quis me expressar meus pensamentos, então a maneira que encontrei para compartilhar minhas crenças foi aqui</p>
+        </aside>        
+    </div>
+    <section id="sobre">
+        <h2>Sobre</h2>
+        <p>Olá, bem vindo ao blog, cujo nome é "Blog Blog". Neste meu blog, irei abordar diversos temas, desde os mais simples, até os mais complexos.</p>
+    </section>
+    <section id="contato">
+        <h2>Contato</h2>
+        <p>Caso queira entrar em contato comigo para sugerir temas, mudanças, ideias etc. | campos.miguel@gmail.com.</p>
+    </section>
+    <footer>
+        <p>&copy; 2024 Blog Blog. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
